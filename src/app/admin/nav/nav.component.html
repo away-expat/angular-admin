@@ -1,0 +1,27 @@
+<aside class="menu section">
+
+  <p class="menu-label">
+    Information
+  </p>
+  <ul class="menu-list">
+    <li><a class="has-text-grey-lighter" routerLink="/admin" [queryParams]="{token:token}">Liste Information</a></li>
+    <li><a class="has-text-grey-lighter" routerLink="/addInfo" [queryParams]="{token:token}">Ajouter Information</a></li>
+  </ul>
+  
+  <p class="menu-label">
+    Evenement
+  </p>
+  <ul class="menu-list">
+    <li><a class="has-text-grey-lighter" routerLink="/seeEvent" [queryParams]="{token:token}">Liste Evenement</a></li>
+    <li><a class="has-text-grey-lighter" routerLink="/addEvent" [queryParams]="{token:token}">Ajouter Evenement</a></li>
+  </ul>
+  
+  <p class="menu-label">
+    Quitter
+  </p>
+  <ul class="menu-list">
+    <li><a class="has-text-grey-lighter" routerLink="/">Deconnexion</a></li>
+  </ul>
+</aside>
+
+<router-outlet></router-outlet>

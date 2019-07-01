@@ -1,0 +1,31 @@
+<section class="hero is-medium is-primary is-fullheight is-bold">
+    <div class="hero-body">
+        <div class="container columns">
+
+            <div class="column is-two-thirds">
+                <h1 class="title">
+                    Welcome to Away !
+                </h1>
+            </div>
+
+            <div class="column is-one-third">
+                <form #userlogin = "ngForm" (ngSubmit) = "connexion(userlogin.value)" >
+                    <div class="field">
+                        <input class="input" type="email" name="email" placeholder="Email" ngModel >
+                    </div>
+                    <div class="field">
+                        <input class="input" type="password" name="password" placeholder="Password" ngModel>
+                    </div>
+                    <div class="field">
+                        <button class="button" type="submit" >Connexion</button>
+                        <p *ngIf="errorConnexion" class="has-text-danger">Erreur de connexion</p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<router-outlet></router-outlet>
+

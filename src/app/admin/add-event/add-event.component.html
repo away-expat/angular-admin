@@ -1,0 +1,126 @@
+<div class="columns is-gapless has-background-grey-lighter">
+        <app-nav class="column hero is-fullheight is-one-fifth has-background-dark"></app-nav>
+    
+        <div class="column is-four-fifths">
+            <div class="section">
+                <div class="level">
+                    <p class="menu-label level-left">
+                        Ajouter des Evenement
+                    </p>
+                </div>
+                
+    
+                <div class="section">
+                    <form #addEvent = "ngForm" (ngSubmit) = "createEvent(addEvent.value)" >
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">City</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input column is-half" type="text" name="city" placeholder="Nom City" (keyup)="autocomplete(addEvent.value.city)" ngModel>
+                                        <p class="column is-half" *ngIf="citySelected">{{actualCity.name}} - {{actualCity.country}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Activité</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input column is-half" type="text" name="activity" placeholder="Nom Activité" (keyup)="autocompleteActivity(addEvent.value.activity)" ngModel>
+                                        <p class="column is-half" *ngIf="activitySelected">{{actualActivity.name}} - {{actualActivity.address}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal" *ngIf="activityArrayShow">
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <div *ngFor="let activity of arrayofActivity;  let i=index">
+                                            <p *ngIf="i<10">
+                                                <button class="button" (click)="selecteActivity(activity)"><i class="far fa-square"></i></button>
+                                                {{activity.name}} - {{activity.address}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Date</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input column is-half" type="text" name="date" placeholder="2019-01-01" value="{{editTitle}}" ngModel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Heure</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input column is-half" type="text" name="hour" placeholder="12:00" value="{{editTitle}}" ngModel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Title</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input" type="text" name="title" placeholder="Titre" value="{{editTitle}}" ngModel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Description</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <textarea class="textarea is-fullheight" rows="10" name="description" placeholder="Details sur le sujet ..." value="{{editContent}}" ngModel></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="level">
+                            <span class="level-left">
+                                <p *ngIf="errorEmpty" class="has-text-danger">Erreur Un des champs est vide</p>
+                                <p *ngIf="errorCreate" class="has-text-danger">Erreur lors de la creation : {{errorMessage}}</p>
+                            </span>
+                            <div class="level-right">
+                                <button class="button is-primary" type="submit" >Valider</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <router-outlet></router-outlet>
+    

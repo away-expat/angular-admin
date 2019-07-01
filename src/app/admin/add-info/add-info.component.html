@@ -1,0 +1,68 @@
+<div class="columns is-gapless has-background-grey-lighter">
+        <app-nav class="column hero is-fullheight is-one-fifth has-background-dark"></app-nav>
+    
+        <div class="column is-four-fifths">
+            <div class="section">
+                <div class="level">
+                    <p class="menu-label level-left">
+                        Ajouter des Informations
+                    </p>
+                </div>
+                
+    
+                <div class="section">
+                    <form #addInfo = "ngForm" (ngSubmit) = "createInfo(addInfo.value)" >
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Pays</label>
+                            </div>
+                            <div class="field-body">
+                                <span class="select">
+                                    <select name="country" #device (change)="changeCountry(device.value)">
+                                        <option *ngFor="let pays of country" >{{ pays }}</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Title</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input" type="text" name="title" placeholder="Titre" value="{{editTitle}}" ngModel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Contenu</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <textarea class="textarea is-fullheight" rows="15" name="content" placeholder="Details sur le sujet ..." value="{{editContent}}" ngModel></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="level">
+                            <span class="level-left">
+                                <p *ngIf="errorEmpty" class="has-text-danger">Erreur Un des champs est vide</p>
+                                <p *ngIf="errorCreate" class="has-text-danger">Erreur lors de la creation : {{errorMessage}}</p>
+                            </span>
+                            <div class="level-right">
+                                <button class="button is-primary" type="submit" >Valider</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <router-outlet></router-outlet>
+    

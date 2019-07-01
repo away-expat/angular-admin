@@ -1,0 +1,110 @@
+<div class="columns is-gapless has-background-grey-lighter">
+    <app-nav class="column hero is-fullheight is-one-fifth has-background-dark"></app-nav>
+
+    <div class="column is-four-fifths">
+        <div class="section">
+            <div class="level">
+
+                <p class="menu-label level-left">
+                    Liste des Informations
+                </p>
+
+            </div>
+
+            <div class="section">
+                <div class="columns is-multiline is-1">
+                    <h2 *ngIf="noData">Aucun Evenement trouvées</h2>
+                    <div class="column is-one-third" *ngFor="let event of events">
+                        <div class="box">
+                            <div class="level">
+                                <span class="level-left"><b>{{event.title}}</b></span>
+                                <span class="level-right">
+                                    <span class="icon has-text-info" (click)="openModal(event)">
+                                        <i class="fas fa-edit modal-button"></i>
+                                    </span>
+                                    <span class="icon has-text-danger" (click)="deleteEvent(event)">
+                                        <i class="fas fa-ban"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span>{{event.date}} {{event.hour}}</span><br>
+                            <span>{{event.description | slice:0:100}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+    <div class="modal-background"></div>
+    <div class="modal-content" style="width: 80%;" >
+        <div class="box">
+            <h1><b>Modification de l'evenement</b></h1><br>
+            <form #editEvent = "ngForm" (ngSubmit) = "validationEdit(editEvent.value)" >
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Date</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input column is-half" type="text" name="date" placeholder="2019-01-01" value="{{editDate}}" ngModel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Heure</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input column is-half" type="text" name="hour" placeholder="12:00" value="{{editHour}}" ngModel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Title</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="title" placeholder="Titre" value="{{editTitle}}" ngModel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Description</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <textarea class="textarea is-fullheight" rows="10" name="description" placeholder="Details sur le sujet ..." value="{{editDescription}}" ngModel></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                <p *ngIf="errorEdit" class="has-text-danger">Erreur lors de la modification : {{errorMessage}}</p>
+            
+                <div class="level">
+                    <button class="button is-grey" aria-label="close">Annuler</button>
+                    <button class="button is-primary">Valider</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
+</div>
+
+<router-outlet></router-outlet>

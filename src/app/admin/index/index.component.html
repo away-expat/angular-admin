@@ -1,0 +1,89 @@
+<div class="columns is-gapless has-background-grey-lighter">
+    <app-nav class="column hero is-fullheight is-one-fifth has-background-dark"></app-nav>
+
+    <div class="column is-four-fifths">
+        <div class="section">
+            <div class="level">
+
+                <p class="menu-label level-left">
+                    Liste des Informations
+                </p>
+
+                <span class="select">
+                    <select name="country" #device (change)="changeCountry(device.value)">
+                        <option *ngFor="let pays of country" >{{ pays }}</option>
+                    </select>
+                </span>
+
+            </div>
+
+            <div class="section">
+                <div class="columns is-multiline is-1">
+                    <h2 *ngIf="noData">Aucune informations trouvées</h2>
+                    <div class="column is-one-third" *ngFor="let info of infos">
+                        <div class="box">
+                            <div class="level">
+                                <span class="level-left"><b>{{info.title}}</b></span>
+                                <span class="level-right">
+                                    <span class="icon has-text-info" (click)="openModal(info)">
+                                        <i class="fas fa-edit modal-button"></i>
+                                    </span>
+                                    <span class="icon has-text-danger" (click)="deleteInfo(info)">
+                                        <i class="fas fa-ban"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span>{{info.content | slice:0:100}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+    <div class="modal-background"></div>
+    <div class="modal-content" style="width: 80%;" >
+        <div class="box">
+            <h1><b>Modification de l'information</b></h1><br>
+            <form #editInfo = "ngForm" (ngSubmit) = "validationEdit(editInfo.value)" >
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Title</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" name="title" placeholder="Titre" value="{{editTitle}}" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Contenu</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <textarea class="textarea" name="content" rows="15" cols="50" placeholder="Details sur le sujet ..." value="{{editContent}}" ngModel></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <p *ngIf="errorEdit" class="has-text-danger">Erreur lors de la modification : {{errorMessage}}</p>
+            
+                <div class="level">
+                    <button class="button is-grey" aria-label="close">Annuler</button>
+                    <button class="button is-primary">Valider</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
+</div>
+
+<router-outlet></router-outlet>
